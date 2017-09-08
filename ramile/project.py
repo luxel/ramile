@@ -20,7 +20,8 @@ class Project(object):
 
     def run(self, output=True, echo=True):
         if echo:
-            print('ramile is running!')
+            print("I'm going to extract %s lines from %s." %
+                  (self.info.lines_to_extract, self.info.project_root))
         self.info.lines_extracted = 0
         project_processor = ProjectProcessor(self.info)
         file_processor = FileProcessor()
@@ -47,6 +48,8 @@ class Project(object):
         return
 
     def print_summary(self):
+        print("The extraction is done. Here's the summary:")
+        print("Code was extracted in: %s" % self.output_file.name)
         print("Total extracted: %s lines" % self.info.lines_extracted)
         print("Total skipped comments: %s lines" %
               self.info.lines_skipped_comments)
