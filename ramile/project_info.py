@@ -23,9 +23,16 @@ class ProjectInfo(object):
         if os.path.exists(config_file):
             with open(config_file, 'r') as file:
                 config_data = json.load(file)
-                if "ignore" in config_data:
-                    self.ignore = config_data['ignore']
+                print(config_data)
+                self.__set_config_ignore(config_data)
         return
+
+    def __set_config_ignore(self, config_data):
+        if "ignore" in config_data:
+            ignores = config_data['ignore']
+            for ignore in ignores:
+                self.ignore.append(os.path.join(self.project_root, ignore))
+            print(self.ignore)
 
     def has_extracted_enough_lines(self):
         return self.lines_extracted >= self.lines_to_extract

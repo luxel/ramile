@@ -23,3 +23,5 @@ When extraction is completed, a file named `extracted_code.txt` will be generate
 | PHP | .php |
 | HTML | .html, .htm |
 | CSS | .css, .less, .sass |
+| Swift | .swift |
+| Objective-C | .m |

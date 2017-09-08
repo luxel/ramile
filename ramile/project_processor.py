@@ -31,11 +31,14 @@ class ProjectProcessor(object):
                     self.files.append(info)
         return
 
+    def walk(self):
+        return
+
     def is_ignored(self, path):
         """ Checks whether the specified path is ignored.
         """
         for ignore in self.project.ignore:
-            if path.endswith(ignore):
+            if path.startswith(ignore):
                 return True
         return False
 

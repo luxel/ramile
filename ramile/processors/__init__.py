@@ -1,5 +1,5 @@
 class FileProcessorBase(object):
-    """ Base class for file processors.
+    """ Base class for file processors. The processor for each lanuage should inherit from this class.
     """
     expected_extensions = []
     filters = []
@@ -71,10 +71,15 @@ class FileProcessor(object):
             yield output
 
     def __build_processors(self):
+        """ Register and cache all supported file processors.
+        """
         self.__cache_processor(JsProcessor())
         self.__cache_processor(JavaProcessor())
         self.__cache_processor(PhpProcessor())
         self.__cache_processor(HtmlProcessor())
+        self.__cache_processor(CssProcessor())
+        self.__cache_processor(SwiftProcessor())
+        self.__cache_processor(OCProcessor())
         return
 
     def __get_cached_processor(self, extension):
@@ -94,3 +99,5 @@ from ramile.processors.java_processor import JavaProcessor
 from ramile.processors.php_processor import PhpProcessor
 from ramile.processors.html_processor import HtmlProcessor
 from ramile.processors.css_processor import CssProcessor
+from ramile.processors.swift_processor import SwiftProcessor
+from ramile.processors.oc_processor import OCProcessor
