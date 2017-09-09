@@ -3,9 +3,14 @@ import json
 
 
 class ProjectInfo(object):
-    """Represents all the information for a project."""
+    """Represents all the information for a project.
+
+    Attributes:
+        source_root     Root directory of the source code folder for parsing.
+    """
     lines_to_extract = 3000
     project_root = ''
+    source_root = ''
     lines_extracted = 0
     lines_skipped_comments = 0
     lines_skipped_blank = 0
@@ -25,7 +30,14 @@ class ProjectInfo(object):
                 config_data = json.load(file)
                 print(config_data)
                 self.__set_config_ignore(config_data)
+        if self.source_root == '':
+            self.source_root = self.project_root
         return
+
+    def __set_config_root(self, config_data):
+        if 'source_root' in config_data:
+            self.source_root = os.path.join(
+                self.project_root, config_data['source_root'])
 
     def __set_config_ignore(self, config_data):
         if "ignore" in config_data:

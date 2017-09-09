@@ -18,7 +18,7 @@ class ProjectProcessor(object):
         return self.files
 
     def find_files(self):
-        for root, dirs, files in os.walk(self.project.project_root):
+        for root, dirs, files in os.walk(self.project.source_root):
             if self.is_ignored(root):
                 continue
             for file_name in files:

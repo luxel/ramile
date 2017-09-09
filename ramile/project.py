@@ -1,4 +1,4 @@
-
+from docx import Document
 from ramile.project_info import ProjectInfo
 from ramile.project_processor import ProjectProcessor
 from ramile.processors import FileProcessor
@@ -6,16 +6,18 @@ from ramile.processors import FileProcessor
 
 class Project(object):
     info = None
-    output_file = None
     output = True
     files = []
 
-    def __init__(self, project_root, output_file='extracted_code.txt', output=True):
+    def __init__(self, project_root, output_file='extracted_code.docx', output=True):
         self.info = ProjectInfo(project_root)
         self.output = output
         if output:
-            self.output_file = open(
-                self.info.get_output_file_path(output_file), 'w+')
+            self.output_path = self.info.get_output_file_path(output_file)
+            # self.output_file = open(
+            # self.info.get_output_file_path(output_file), 'w+')
+            self.output_file = Document('ramile/data/template.docx')
+            self.paragraph = None
         return
 
     def run(self, output=True, echo=True):
@@ -42,28 +44,32 @@ class Project(object):
         if not self.info.has_extracted_enough_lines():
             print("Warning!! Not enough source code to extract %s lines!" %
                   self.info.lines_to_extract)
-        self.output_file.close()
+        # self.output_file.close()
+        self.output_file.save(self.output_path)
         if echo:
             self.print_summary()
         return
 
     def print_summary(self):
         print("The extraction is done. Here's the summary:")
-        print("Code was extracted in: %s" % self.output_file.name)
+        print("Code was extracted in: %s" % self.output_path)
         print("Total extracted: %s lines" % self.info.lines_extracted)
         print("Total skipped comments: %s lines" %
               self.info.lines_skipped_comments)
         print("Total skipped blank lines: %s lines" %
               self.info.lines_skipped_blank)
-        print("Files with contribution:")
+        print("Files that contributed to the output:")
         for file in self.files:
             if file.has_extracted_lines():
                 print("%s : %s lines" % (file.file_path, file.extracted_lines))
 
     def export(self, line):
         if self.output:
-            self.output_file.write(line)
-            if not line.endswith('\n'):
-                self.output_file.write('\n')
+            # self.output_file.write(line)
+            # if not line.endswith('\n'):
+            #     self.output_file.write('\n')
+            if self.paragraph is None:
+                self.paragraph = self.output_file.paragraphs[0]
+            self.paragraph.add_run(line)
         self.info.lines_extracted += 1
         return
