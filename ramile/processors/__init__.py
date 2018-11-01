@@ -1,3 +1,6 @@
+import io
+
+
 class FileProcessorBase(object):
     """ Base class for file processors. The processor for each lanuage should inherit from this class.
     """
@@ -20,7 +23,7 @@ class FileProcessorBase(object):
     def process(self, file):
         """ Processes a file and extracts lines out of it.
         """
-        with open(file.file_path, 'r', encoding='utf-8') as open_file:
+        with io.open(file.file_path, 'r', encoding='utf-8') as open_file:
             last_line = None
             for original_line in open_file:
                 if self.process_line(file, original_line):

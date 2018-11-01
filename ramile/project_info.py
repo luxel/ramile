@@ -1,5 +1,6 @@
 import os.path
 import json
+import io
 
 
 class ProjectInfo(object):
@@ -27,7 +28,7 @@ class ProjectInfo(object):
         """
         config_file = os.path.join(self.project_root, '.ramileconfig.json')
         if os.path.exists(config_file):
-            with open(config_file, 'r') as file:
+            with io.open(config_file, 'r') as file:
                 config_data = json.load(file)
                 print(config_data)
                 self.__set_config_ignore(config_data)
