@@ -15,6 +15,7 @@ class ProjectInfo(object):
     lines_skipped_comments = 0
     lines_skipped_blank = 0
     ignore = []
+    filters = []
 
     def __init__(self, project_root):
         self.project_root = project_root
@@ -30,9 +31,15 @@ class ProjectInfo(object):
                 config_data = json.load(file)
                 print(config_data)
                 self.__set_config_ignore(config_data)
+                self.__set_config_root(config_data)
+                self.__set_config_filters(config_data)
         if self.source_root == '':
             self.source_root = self.project_root
         return
+
+    def __set_config_filters(self, config_data):
+        if 'filters' in config_data:
+            self.filters = config_data['filters']
 
     def __set_config_root(self, config_data):
         if 'source_root' in config_data:

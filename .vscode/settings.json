@@ -1,9 +1,9 @@
 {
-	"[python]":  {
+	"[python]": {
 		"editor.insertSpaces": true,
 		"editor.tabSize": 4
 	},
-	"python.formatting.formatOnSave": true,
+	"editor.formatOnSave": true,
 	"files.exclude": {
 		"__pycache__": true,
 		"scripts/__pycache__": true

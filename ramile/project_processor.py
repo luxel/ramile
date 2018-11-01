@@ -43,7 +43,18 @@ class ProjectProcessor(object):
         return False
 
     def is_interested_file(self, filename, extension):
-        return self.file_processor.has_interest(extension)
+        is_interested = True
+        if len(self.project.filters) > 0:
+            is_interested = False
+            for filter in self.project.filters:
+                if extension == filter:
+                    is_interested = True
+                    break
+
+        if is_interested:
+            return self.file_processor.has_interest(extension)
+        else:
+            return False
 
     def sort_files(self):
         return
