@@ -41,27 +41,28 @@ class Project(object):
             self.info.lines_skipped_comments += file.comment_lines
             if self.info.has_extracted_enough_lines():
                 break
-        if not self.info.has_extracted_enough_lines():
-            print("Warning!! Not enough source code to extract %s lines!" %
-                  self.info.lines_to_extract)
         # self.output_file.close()
         self.output_file.save(self.output_path)
         if echo:
             self.print_summary()
+
+        if not self.info.has_extracted_enough_lines():
+            print("Warning!! Not enough source code to extract %s lines!" %
+                  self.info.lines_to_extract)
         return
 
     def print_summary(self):
         print("The extraction is done. Here's the summary:")
+        print("Files that contributed to the output:")
+        for file in self.files:
+            if file.has_extracted_lines():
+                print("%s : %s lines" % (file.file_path, file.extracted_lines))
         print("Code was extracted in: %s" % self.output_path)
         print("Total extracted: %s lines" % self.info.lines_extracted)
         print("Total skipped comments: %s lines" %
               self.info.lines_skipped_comments)
         print("Total skipped blank lines: %s lines" %
               self.info.lines_skipped_blank)
-        print("Files that contributed to the output:")
-        for file in self.files:
-            if file.has_extracted_lines():
-                print("%s : %s lines" % (file.file_path, file.extracted_lines))
 
     def export(self, line):
         if self.output:
