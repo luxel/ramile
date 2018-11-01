@@ -50,7 +50,7 @@ class ProjectInfo(object):
         if "ignore" in config_data:
             ignores = config_data['ignore']
             for ignore in ignores:
-                self.ignore.append(os.path.join(self.project_root, ignore))
+                self.ignore.append(os.path.join(self.source_root, ignore))
             print(self.ignore)
 
     def has_extracted_enough_lines(self):
