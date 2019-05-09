@@ -7,7 +7,8 @@ class ProjectInfo(object):
     """Represents all the information for a project.
 
     Attributes:
-        source_root     Root directory of the source code folder for parsing.
+        source_root         Root directory of the source code folder for parsing.
+        lines_to_extract    How many lines to extract, default to 3000
     """
     lines_to_extract = 3000
     project_root = ''
@@ -18,8 +19,9 @@ class ProjectInfo(object):
     ignore = []
     filters = []
 
-    def __init__(self, project_root):
+    def __init__(self, project_root, lines_to_extract):
         self.project_root = project_root
+        self.lines_to_extract = float(lines_to_extract)
         self.parse_config()
         return
 

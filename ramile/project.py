@@ -9,8 +9,8 @@ class Project(object):
     output = True
     files = []
 
-    def __init__(self, project_root, output_file='extracted_code.docx', output=True):
-        self.info = ProjectInfo(project_root)
+    def __init__(self, project_root, lines_to_extract=3000, output_file='extracted_code.docx', output=True):
+        self.info = ProjectInfo(project_root, lines_to_extract)
         self.output = output
         if output:
             self.output_path = self.info.get_output_file_path(output_file)
