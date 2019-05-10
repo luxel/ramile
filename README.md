@@ -54,3 +54,10 @@ Ramile automatically loads the config file `.ramileconfig.json` from the project
 | CSS         | .css, .less, .sass    |
 | Swift       | .swift                |
 | Objective-C | .m                    |
+
+## Test:
+
+```shell
+cd tests
+pytest
+```
