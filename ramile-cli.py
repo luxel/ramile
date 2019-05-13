@@ -7,8 +7,8 @@ from ramile.processors import FileProcessor
 
 class ramile_cli(object):
 
-    def extract(self, project_root):
-        project = Project(project_root)
+    def extract(self, project_root, lines_to_extract=3000):
+        project = Project(project_root, lines_to_extract)
         project.run()
         return
 

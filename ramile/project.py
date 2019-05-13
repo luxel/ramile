@@ -2,6 +2,7 @@ from docx import Document
 from ramile.project_info import ProjectInfo
 from ramile.project_processor import ProjectProcessor
 from ramile.processors import FileProcessor
+import os
 
 
 class Project(object):
@@ -9,14 +10,15 @@ class Project(object):
     output = True
     files = []
 
-    def __init__(self, project_root, output_file='extracted_code.docx', output=True):
-        self.info = ProjectInfo(project_root)
+    def __init__(self, project_root, lines_to_extract=3000, output_file='extracted_code.docx', output=True):
+        self.info = ProjectInfo(project_root, lines_to_extract)
         self.output = output
         if output:
             self.output_path = self.info.get_output_file_path(output_file)
             # self.output_file = open(
             # self.info.get_output_file_path(output_file), 'w+')
-            self.output_file = Document('ramile/data/template.docx')
+            self.output_file = Document(os.path.join(
+                os.path.dirname(__file__), 'data/template.docx'))
             self.paragraph = None
         return
 
@@ -42,6 +44,7 @@ class Project(object):
             if self.info.has_extracted_enough_lines():
                 break
         # self.output_file.close()
+        print('current file = ', __file__)
         self.output_file.save(self.output_path)
         if echo:
             self.print_summary()

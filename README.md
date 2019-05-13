@@ -4,7 +4,7 @@ _Ramile a handy tool used to automatically extract 3000 lines of source codes fr
 Currently Ramile has below features:
 
 - Automatically extracting the source code and generating a docx file containing 3000 lines. (You have to manually remove the last few pages of the docx to make it exactly 60 pages, though)
-- Supporting most of the commmon front-end projects: android/ios/web, etc
+- Supporting most of the commmon front-end projects: android/ios/web/Wechat mini program, etc
 - Configurable. Just place a `.ramileconfig.json` under the project root folder. (See "Config" section for details)
 
 Tested under python 3.6.1.
@@ -20,10 +20,18 @@ To run Ramile source code, clone the repository and install dependencies: `pip i
 Running from source code:
 
 ```
-python ramile-cli.py extract <path to you project root>
+python ramile-cli.py extract <path to your project root>
 ```
 
 When the extraction is completed, a file named `extracted_code.docx` will be generated under your project root directory, with 3000 lines of code. You just have to open it and remove unnecessary pages to make the document exact 60 pages.
+
+If you want to strictly meet the [regulation](./著作权法.md#第十条-软件的鉴别材料包括程序和文档的鉴别材料), you can extract all the lines by append `Inf` to the command line:
+
+```
+python ramile-cli.py extract <path to your project root> Inf
+```
+
+And then you just have to open it and keep the first 30 pages and the last 30 pages, and remove all the intermediate pages.
 
 ## Config
 
@@ -37,12 +45,19 @@ Ramile automatically loads the config file `.ramileconfig.json` from the project
 
 ## Supported Languages
 
-| Language    | Extensions         |
-| :---------- | :----------------- |
-| JavaScript  | .js, .jsx, .vue    |
-| Java        | .java              |
-| PHP         | .php               |
-| HTML        | .html, .htm        |
-| CSS         | .css, .less, .sass |
-| Swift       | .swift             |
-| Objective-C | .m                 |
+| Language    | Extensions            |
+| :---------- | :-------------------- |
+| JavaScript  | .js, .jsx, .vue, .wpy |
+| Java        | .java                 |
+| PHP         | .php                  |
+| HTML        | .html, .htm           |
+| CSS         | .css, .less, .sass    |
+| Swift       | .swift                |
+| Objective-C | .m                    |
+
+## Test:
+
+```shell
+cd tests
+pytest
+```
