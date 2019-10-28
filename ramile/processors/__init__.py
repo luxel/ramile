@@ -95,8 +95,7 @@ class FileProcessor(object):
         return
 
 
-from ramile.processors.blank_line_filter import BlankLineFilter
-from ramile.processors.comment_block_filter import CommentBlockFilter
+from ramile.filters.blank_line_filter import BlankLineFilter
 from ramile.processors.js_processor import JsProcessor
 from ramile.processors.java_processor import JavaProcessor
 from ramile.processors.php_processor import PhpProcessor
