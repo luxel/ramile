@@ -3,6 +3,7 @@ from ramile.processors import LineFilterBase
 
 class CommentBlockFilterBase(LineFilterBase):
     """ Filtering out comment block """
+    block_signs = {}
 
     def filter(self, file, line):
         if file.is_in_comment_block:
@@ -10,18 +11,15 @@ class CommentBlockFilterBase(LineFilterBase):
             if self.close_comment_block(file, line):
                 file.found_comment_line()
                 file.mark_comment_block_end()
-                file.comment_block_sign_end = None
             return line, True
         else:
-            is_comment_block, comment_block_sign_end = self.is_comment_block(line)
+            is_comment_block, comment_block_end_sign = self.is_comment_block(line)
             if is_comment_block:
-                file.comment_block_sign_end = comment_block_sign_end
-                file.mark_comment_block_start()
+                file.mark_comment_block_start(comment_block_end_sign)
                 file.found_comment_line()
 
                 if self.close_comment_block(file, line):
                     file.mark_comment_block_end()
-                    file.comment_block_sign_end = None
                 return line, True
         return line, False
 
@@ -30,42 +28,38 @@ class CommentBlockFilterBase(LineFilterBase):
 
         :param line: current line
         :return is_comment_block: whether current line starts a comment block
-        :return comment_block_sign_end: sign to close the comment block
+        :return comment_block_end_sign: sign to close the comment block
         :raise NotImplementedError: every subclass should implement this method
         """
-        raise NotImplementedError
+        for sign_start in self.block_signs.keys():
+            if line.startswith(sign_start):
+                return True, self.block_signs[sign_start]
+        return False, None
 
     def close_comment_block(self, file, line):
-        return line.endswith(file.comment_block_sign_end)
+        return line.endswith(file.comment_block_end_sign)
 
 
 class PythonCommentBlockFilter(CommentBlockFilterBase):
     """ Filtering out Python multi-line docstrings with \"\"\" and '''
     """
-
-    def is_comment_block(self, line):
-        if line.startswith('"""'):
-            return True, '"""'
-        if line.startswith("'''"):
-            return True, "'''"
-        return False, None
+    block_signs = {
+        '"""': '"""',
+        "'''": "'''"
+    }
 
 
 class CStyleCommentBlockFilter(CommentBlockFilterBase):
     """ Filters out C-style comment blocks with '/*' and '*/'
     """
-
-    def is_comment_block(self, line):
-        if line.startswith('/*'):
-            return True, '*/'
-        return False, None
+    block_signs = {
+        '/*', '*/'
+    }
 
 
 class HtmlCommentBlockFilter(CommentBlockFilterBase):
     """ Filters out html comment blocks with '<!--' and '-->'
     """
-
-    def is_comment_block(self, line):
-        if line.startswith('<!--'):
-            return True, '-->'
-        return False, None
+    block_signs = {
+        '<!--': '-->'
+    }
