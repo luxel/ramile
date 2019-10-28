@@ -13,13 +13,13 @@ class CommentFilterBase(LineFilterBase):
         return line, False
 
 
-class DoubleSlashCommentFilter(LineFilterBase):
+class DoubleSlashCommentFilter(CommentFilterBase):
     """ Filters out single line comments which start with '//'
     """
     comment_sign = '//'
 
 
-class SharpCommentFilter(LineFilterBase):
+class SharpCommentFilter(CommentFilterBase):
     """ Filters out single line comments which start with '#'
     """
     comment_sign = '#'

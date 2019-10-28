@@ -11,7 +11,7 @@ Python                       1              4            14                6
 -------------------------------------------------------------------------------
     """
     project = Project('data/fire',
-                      3000, 'test-output.docs')
+                      3000, 'test-output.docx')
     project.run()
     assert project.info.lines_extracted == 6
     assert project.info.lines_skipped_blank == 4

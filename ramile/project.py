@@ -1,8 +1,10 @@
+import os
+
 from docx import Document
+
+from ramile.processors import FileProcessor
 from ramile.project_info import ProjectInfo
 from ramile.project_processor import ProjectProcessor
-from ramile.processors import FileProcessor
-import os
 
 
 class Project(object):

@@ -9,7 +9,6 @@ class CommentBlockFilterBase(LineFilterBase):
         if file.is_in_comment_block:
             file.found_comment_line()
             if self.close_comment_block(file, line):
-                file.found_comment_line()
                 file.mark_comment_block_end()
             return line, True
         else:
@@ -29,7 +28,6 @@ class CommentBlockFilterBase(LineFilterBase):
         :param line: current line
         :return is_comment_block: whether current line starts a comment block
         :return comment_block_end_sign: sign to close the comment block
-        :raise NotImplementedError: every subclass should implement this method
         """
         for sign_start in self.block_signs.keys():
             if line.startswith(sign_start):
@@ -53,7 +51,7 @@ class CStyleCommentBlockFilter(CommentBlockFilterBase):
     """ Filters out C-style comment blocks with '/*' and '*/'
     """
     block_signs = {
-        '/*', '*/'
+        '/*': '*/'
     }
 
 
