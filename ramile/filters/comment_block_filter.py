@@ -1,17 +1,6 @@
 from ramile.processors import LineFilterBase
 
 
-class CommentBlockFilter(LineFilterBase):
-    """ Filters out everything - when the file is currently in a comment block.
-    """
-
-    def filter(self, file, line):
-        if file.is_in_comment_block:
-            file.found_comment_line()
-            return line, True
-        return line, False
-
-
 class CommentBlockFilterBase(LineFilterBase):
     """ Filtering out comment block """
 
@@ -59,4 +48,14 @@ class PythonCommentBlockFilter(CommentBlockFilterBase):
             return True, '"""'
         if line.startswith("'''"):
             return True, "'''"
+        return False, None
+
+
+class CStyleCommentBlockFilter(CommentBlockFilterBase):
+    """ Filters out C-style comment blocks with '/*' and '*/'
+    """
+
+    def is_comment_block(self, line):
+        if line.startswith('/*'):
+            return True, '*/'
         return False, None

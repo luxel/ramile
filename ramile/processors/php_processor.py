@@ -1,4 +1,4 @@
-from ramile.filters.c_style_comment_block_filter import CStyleCommentBlockFilter
+from ramile.filters.comment_block_filter import CStyleCommentBlockFilter
 from ramile.filters.double_slash_comment_filter import DoubleSlashCommentFilter
 from ramile.filters.html_comment_block_filter import HtmlCommentBlockFilter
 from ramile.processors import FileProcessorBase
