@@ -49,7 +49,7 @@ class LineFilterBase(object):
     """ A filter will process each line, and determine whether each line should be dropped. A filter can also perform any neccessary process on the line and replace the original line.
     """
 
-    def filter(self, line):
+    def filter(self, file, line):
         """ Filters a line of code, outputs the filtered content, and a flag whether the line should be dropped.
         """
         return line, False
