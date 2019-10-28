@@ -102,3 +102,4 @@ ENV/
 
 # Ramile project ignores
 test-output*
+.idea
