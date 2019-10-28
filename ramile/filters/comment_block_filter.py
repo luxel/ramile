@@ -19,7 +19,9 @@ class CommentBlockFilterBase(LineFilterBase):
         if file.is_in_comment_block:
             file.found_comment_line()
             if self.close_comment_block(file, line):
+                file.found_comment_line()
                 file.mark_comment_block_end()
+                file.comment_block_sign_end = None
             return line, True
         else:
             is_comment_block, comment_block_sign_end = self.is_comment_block(line)
@@ -30,6 +32,7 @@ class CommentBlockFilterBase(LineFilterBase):
 
                 if self.close_comment_block(file, line):
                     file.mark_comment_block_end()
+                    file.comment_block_sign_end = None
                 return line, True
         return line, False
 

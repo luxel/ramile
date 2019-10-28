@@ -56,7 +56,7 @@ class Project(object):
 
     def print_summary(self):
         print("The extraction is done. Here's the summary:")
-        print("Files that contributed to the output:")
+        print("%d files that contributed to the output:" % (len(self.files)))
         for file in self.files:
             if file.has_extracted_lines():
                 print("%s : %s lines" % (file.file_path, file.extracted_lines))
