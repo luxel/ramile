@@ -59,3 +59,13 @@ class CStyleCommentBlockFilter(CommentBlockFilterBase):
         if line.startswith('/*'):
             return True, '*/'
         return False, None
+
+
+class HtmlCommentBlockFilter(CommentBlockFilterBase):
+    """ Filters out html comment blocks with '<!--' and '-->'
+    """
+
+    def is_comment_block(self, line):
+        if line.startswith('<!--'):
+            return True, '-->'
+        return False, None
