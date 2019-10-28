@@ -1,5 +1,5 @@
 from ramile.filters.comment_block_filter import CStyleCommentBlockFilter
-from ramile.filters.double_slash_comment_filter import DoubleSlashCommentFilter
+from ramile.filters.comment_filter import DoubleSlashCommentFilter
 from ramile.processors import FileProcessorBase
 
 

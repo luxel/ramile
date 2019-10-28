@@ -1,5 +1,5 @@
 from ramile.filters.comment_block_filter import PythonCommentBlockFilter
-from ramile.filters.sharp_comment_filter import SharpCommentFilter
+from ramile.filters.comment_filter import SharpCommentFilter
 from ramile.processors import FileProcessorBase
 
 
