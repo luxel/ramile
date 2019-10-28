@@ -1,15 +1,14 @@
-from ramile.processors import FileProcessorBase
-from ramile.processors import BlankLineFilter
 from ramile.filters.c_style_comment_block_filter import CStyleCommentBlockFilter
 from ramile.filters.double_slash_comment_filter import DoubleSlashCommentFilter
 from ramile.filters.html_comment_block_filter import HtmlCommentBlockFilter
+from ramile.processors import FileProcessorBase
 
 
 class HtmlProcessor(FileProcessorBase):
     expected_extensions = ['.html', '.htm']
 
     def __init__(self):
-        self.filters.append(BlankLineFilter())
+        super().__init__()
         self.filters.append(CStyleCommentBlockFilter())
         self.filters.append(DoubleSlashCommentFilter())
         self.filters.append(HtmlCommentBlockFilter())

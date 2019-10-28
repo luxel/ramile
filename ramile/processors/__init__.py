@@ -5,10 +5,10 @@ class FileProcessorBase(object):
     """ Base class for file processors. The processor for each lanuage should inherit from this class.
     """
     expected_extensions = []
-    filters = []
 
     def __init__(self):
         # by default, processors of all languages will always starts with a blank line filter
+        self.filters = []
         self.filters.append(BlankLineFilter())
         return
 
