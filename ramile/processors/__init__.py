@@ -84,6 +84,7 @@ class FileProcessor(object):
         self.__cache_processor(SwiftProcessor())
         self.__cache_processor(OCProcessor())
         self.__cache_processor(PythonProcessor())
+        self.__cache_processor(CppProcessor())
         return
 
     def __get_cached_processor(self, extension):
@@ -105,3 +106,4 @@ from ramile.processors.css_processor import CssProcessor
 from ramile.processors.swift_processor import SwiftProcessor
 from ramile.processors.oc_processor import OCProcessor
 from ramile.processors.python_processor import PythonProcessor
+from ramile.processors.cpp_processor import CppProcessor
