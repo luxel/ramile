@@ -9,6 +9,7 @@ class Project(object):
     info = None
     output = True
     files = []
+    lines = []
 
     def __init__(self, project_root, lines_to_extract=3000, output_file='extracted_code.docx', output=True):
         self.info = ProjectInfo(project_root, lines_to_extract)
@@ -44,8 +45,9 @@ class Project(object):
             if self.info.has_extracted_enough_lines():
                 break
         # self.output_file.close()
-        print('current file = ', __file__)
-        self.output_file.save(self.output_path)
+
+        self.write_to_file()
+
         if echo:
             self.print_summary()
 
@@ -62,18 +64,45 @@ class Project(object):
                 print("%s : %s lines" % (file.file_path, file.extracted_lines))
         print("Code was extracted in: %s" % self.output_path)
         print("Total extracted: %s lines" % self.info.lines_extracted)
+        print("Wrote to file: %s lines" % len(self.lines))
         print("Total skipped comments: %s lines" %
               self.info.lines_skipped_comments)
         print("Total skipped blank lines: %s lines" %
               self.info.lines_skipped_blank)
+        if self.info.lines_extracted > 3000:
+            print("Total skipped overflow lines: %s lines" %
+                  (self.info.lines_extracted - len(self.lines)))
 
     def export(self, line):
+        max_length_of_line = 60
+        appended = 0
+
+        while appended < len(line):
+            l = line[appended:appended+max_length_of_line]
+            self.lines.append(l)
+            self.info.lines_extracted += 1
+            appended += len(l)
+
+        return
+
+    def write_to_file(self):
         if self.output:
-            # self.output_file.write(line)
-            # if not line.endswith('\n'):
-            #     self.output_file.write('\n')
             if self.paragraph is None:
                 self.paragraph = self.output_file.paragraphs[0]
-            self.paragraph.add_run(line)
-        self.info.lines_extracted += 1
+
+            if self.info.lines_extracted > 3000:
+                lines_to_cut = self.info.lines_extracted - 3000
+                del self.lines[1501:1501+lines_to_cut]
+
+            i = 0
+            for line in self.lines:
+                i += 1
+                if i < 3000 and not line.endswith('\n'):
+                    line += '\n'
+                if i == 3000 and line.endswith('\n'):
+                    line = line[0:len(line)-1]
+
+                self.paragraph.add_run(line)
+
+            self.output_file.save(self.output_path)
         return

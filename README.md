@@ -31,8 +31,6 @@ If you want to strictly meet the [regulation](./著作权法.md#第十条-软件
 python ramile-cli.py extract <path to your project root> Inf
 ```
 
-And then you just have to open it and keep the first 30 pages and the last 30 pages, and remove all the intermediate pages.
-
 ## Config
 
 Ramile automatically loads the config file `.ramileconfig.json` from the project root, if it exits. The file should be in json format. Possible config items as below:
