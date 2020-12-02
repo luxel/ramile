@@ -12,12 +12,12 @@ class CommentBlockFilterBase(LineFilterBase):
                 file.mark_comment_block_end()
             return line, True
         else:
-            is_comment_block, comment_block_end_sign = self.is_comment_block(line)
+            is_comment_block, comment_block_start_sign, comment_block_end_sign = self.is_comment_block(line)
             if is_comment_block:
                 file.mark_comment_block_start(comment_block_end_sign)
                 file.found_comment_line()
-
-                if self.close_comment_block(file, line):
+                line_tail = line[len(comment_block_start_sign):]
+                if self.close_comment_block(file, line_tail):
                     file.mark_comment_block_end()
                 return line, True
         return line, False
@@ -31,8 +31,8 @@ class CommentBlockFilterBase(LineFilterBase):
         """
         for sign_start in self.block_signs.keys():
             if line.startswith(sign_start):
-                return True, self.block_signs[sign_start]
-        return False, None
+                return True, sign_start, self.block_signs[sign_start]
+        return False, None, None
 
     def close_comment_block(self, file, line):
         return line.endswith(file.comment_block_end_sign)
