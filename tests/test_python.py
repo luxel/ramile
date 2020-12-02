@@ -18,7 +18,7 @@ Python                       1              4            14                6
     assert project.info.lines_skipped_comments == 14
     return
 
-def test_file__init__():
+def test_comments_startswith_linebreak():
     """ Test with python_module/settings.py:
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
