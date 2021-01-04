@@ -30,3 +30,9 @@ class SharpCommentFilter(CommentFilterBase):
     """ Filters out single line comments which start with '#'
     """
     comment_sign = '#'
+
+
+class ColonCommentFilter(CommentFilterBase):
+    """ Filters out single line comments which start with ':'
+    """
+    comment_sign = ':'
