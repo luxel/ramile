@@ -3,11 +3,10 @@ from ramile.filters.comment_line_filter import DoubleSlashCommentFilter
 from ramile.processors import FileProcessorBase
 
 
-class SwiftProcessor(FileProcessorBase):
-    expected_extensions = ['.swift']
+class CppProcessor(FileProcessorBase):
+    expected_extensions = ['.cpp', '.c', 'h']
 
     def __init__(self):
         super().__init__()
-        self.filters.append(CStyleCommentBlockFilter())
         self.filters.append(DoubleSlashCommentFilter())
-        return
+        self.filters.append(CStyleCommentBlockFilter())
