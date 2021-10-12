@@ -83,6 +83,7 @@ class FileProcessor(object):
         self.__cache_processor(CssProcessor())
         self.__cache_processor(SwiftProcessor())
         self.__cache_processor(OCProcessor())
+        self.__cache_processor(GoProcessor())
         return
 
     def __get_cached_processor(self, extension):
@@ -104,3 +105,4 @@ from ramile.processors.html_processor import HtmlProcessor
 from ramile.processors.css_processor import CssProcessor
 from ramile.processors.swift_processor import SwiftProcessor
 from ramile.processors.oc_processor import OCProcessor
+from ramile.processors.go_processor import GoProcessor
