@@ -16,6 +16,7 @@ class ProjectInfo(object):
     lines_extracted = 0
     lines_skipped_comments = 0
     lines_skipped_blank = 0
+    lines_skipped_overflow = 0
     ignore = []
     filters = []
 
