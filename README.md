@@ -35,11 +35,12 @@ python ramile-cli.py extract <path to your project root> Inf
 
 Ramile automatically loads the config file `.ramileconfig.json` from the project root, if it exits. The file should be in json format. Possible config items as below:
 
-| Key         | Description                                                                                                                                                                                                                          | Default | Example          |
-| :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------ | :--------------- |
-| ignore      | Sets the directories/files to be ignored by Ramile. "ignore" paths should be sub directories/files under source_root. Any directories/files starting with any one of the "ignore" items will be ignored. Wildcars are not supported. | []      | ['Pods', 'libs'] |
-| source_root | Overwrites the root directory of source codes to avoid Ramile process from the project root.                                                                                                                                         | ''      | 'app'            |
-| filters     | Sets the exclusive filters (which means, all other extensions will NOT be processed) for file extensions. By default all files will be processed.                                                                                    | []      | ['.js', '.vue']  |
+| Key              | Description                                                                                                                                                                                                                          | Default | Example          |
+| :--------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------ | :--------------- |
+| ignore           | Sets the directories/files to be ignored by Ramile. "ignore" paths should be sub directories/files under source_root. Any directories/files starting with any one of the "ignore" items will be ignored. Wildcars are not supported. | []      | ['Pods', 'libs'] |
+| source_root      | Overwrites the root directory of source codes to avoid Ramile process from the project root.                                                                                                                                         | ''      | 'app'            |
+| filters          | Sets the exclusive filters (which means, all other extensions will NOT be processed) for file extensions. By default all files will be processed.                                                                                    | []      | ['.js', '.vue']  |
+| lines_to_extract | Sets the total lines to extract                                                                                                                                                                                                      | 3000    | 3000             |
 
 ## Supported Languages
 
