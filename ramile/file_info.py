@@ -3,6 +3,7 @@ class FileInfo(object):
     file_extension = ''
     file_path = ''
     is_in_comment_block = False
+    comment_block_end_sign = None
     blank_lines = 0
     comment_lines = 0
     extracted_lines = 0
@@ -28,10 +29,12 @@ class FileInfo(object):
         self.comment_lines += 1
         return
 
-    def mark_comment_block_start(self):
+    def mark_comment_block_start(self, block_end_sign):
         self.is_in_comment_block = True
+        self.comment_block_end_sign = block_end_sign
         return
 
     def mark_comment_block_end(self):
         self.is_in_comment_block = False
+        self.comment_block_end_sign = None
         return
