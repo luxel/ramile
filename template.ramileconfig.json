@@ -1,5 +1,6 @@
 {
 	"source_root": "",
 	"ignore": [],
-	"filters": []
+	"filters": [],
+	"lines_to_extract": 3000
 }

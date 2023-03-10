@@ -33,9 +33,10 @@ class ProjectInfo(object):
             with io.open(config_file, 'r') as file:
                 config_data = json.load(file)
                 print(config_data)
-                self.__set_config_ignore(config_data)
                 self.__set_config_root(config_data)
+                self.__set_config_ignore(config_data)
                 self.__set_config_filters(config_data)
+                self.__set_config_lines_to_extract(config_data)
         if self.source_root == '':
             self.source_root = self.project_root
         return
@@ -50,11 +51,15 @@ class ProjectInfo(object):
                 self.project_root, config_data['source_root'])
 
     def __set_config_ignore(self, config_data):
-        if "ignore" in config_data:
+        if 'ignore' in config_data:
             ignores = config_data['ignore']
             for ignore in ignores:
                 self.ignore.append(os.path.join(self.source_root, ignore))
-            print(self.ignore)
+            print('Paths to be ignored: ', self.ignore)
+
+    def __set_config_lines_to_extract(self, config_data):
+        if 'lines_to_extract' in config_data:
+            self.lines_to_extract = float(config_data['lines_to_extract'])
 
     def has_extracted_enough_lines(self):
         return self.lines_extracted >= self.lines_to_extract
