@@ -5,7 +5,7 @@ from ramile.processors.double_slash_comment_filter import DoubleSlashCommentFilt
 
 
 class JsProcessor(FileProcessorBase):
-    expected_extensions = ['.js', '.jsx', '.vue', '.wpy']
+    expected_extensions = ['.js', '.ts', '.jsx', '.vue', '.wpy']
 
     def __init__(self):
         self.filters.append(BlankLineFilter())
