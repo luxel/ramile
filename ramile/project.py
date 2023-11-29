@@ -3,6 +3,7 @@ from ramile.project_info import ProjectInfo
 from ramile.project_processor import ProjectProcessor
 from ramile.processors import FileProcessor
 import os
+import random
 
 
 class Project(object):
@@ -31,8 +32,12 @@ class Project(object):
         file_processor = FileProcessor()
         # 1. Process and collect the files
         self.files = project_processor.process()
+        array_length = len(self.files)
         # 2. Process each file
-        for file in self.files:
+        while True:
+            # 3. Get the random index in the file list
+            random_index = random.randint(0, array_length - 1)
+            file = self.files[random_index]
             for output in file_processor.process(file):
                 self.export(output)
                 file.extracted_line()
